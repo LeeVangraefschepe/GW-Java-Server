@@ -1,24 +1,30 @@
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Objects;
 
 public class Server extends Thread
 {
-    private ServerSocket _serverSocket;
-    private List<Socket> _connectedSockets = new ArrayList<>();
+    private ServerSocket _tcpSocket;
+    private DatagramSocket _udpSocket;
+    private LinkedHashSet<Socket> _tcpSockets = new LinkedHashSet<>();
+    private LinkedHashSet<UDPSocket> _udpSockets = new LinkedHashSet<>();
     private boolean _isRunning = false;
 
     public Server(int port)
     {
         try
         {
-            _serverSocket = new ServerSocket(port);
+            _tcpSocket = new ServerSocket(port);
+            _udpSocket = new DatagramSocket(port);
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -39,7 +45,15 @@ public class Server extends Thread
         interrupt();
         try
         {
-            _serverSocket.close();
+            for (Socket socket : _tcpSockets)
+            {
+                socket.close();
+            }
+            
+            _tcpSocket.close();
+            _udpSocket.close();
+
+            
         }
         catch (IOException e)
         {
@@ -50,14 +64,15 @@ public class Server extends Thread
     @Override
     public void run()
     {
+        HandleUDP();
         while (_isRunning)
         {
             try
             {
-                Socket clientSocket = _serverSocket.accept();
-                _connectedSockets.add(clientSocket);
-                handleClient(clientSocket);
-                System.out.println("Client connected!");
+                Socket clientSocket = _tcpSocket.accept();
+                _tcpSockets.add(clientSocket);
+                HandleTCP(clientSocket);
+                System.out.println("Client connected!");               
             }
             catch (IOException e)
             {
@@ -67,7 +82,60 @@ public class Server extends Thread
         }
     }
 
-    private void handleClient(Socket clientSocket) {
+    private void HandleUDP()
+    {
+        new Thread(() -> {
+            while (_isRunning)
+            {
+                try
+                {
+                    // UDP connection handling
+                    byte[] udpBuffer = new byte[1024];
+                    DatagramPacket udpPacket = new DatagramPacket(udpBuffer, udpBuffer.length);
+                    _udpSocket.receive(udpPacket);
+
+                    String receivedData = new String(udpBuffer, 8, udpBuffer.length-8);
+
+                    System.out.println("UDP Packet from: " + udpPacket.getSocketAddress());
+                    System.out.println(receivedData);
+
+                    UDPSocket senderSocket = new UDPSocket();
+                    senderSocket.address = udpPacket.getAddress();
+                    senderSocket.port = udpPacket.getPort();
+                    _udpSockets.add(senderSocket);
+
+                    System.out.println("UDP socket size: " + _udpSockets.size());
+
+                    SendAllUDP("Hello does this work?");
+                }
+                catch (Exception e)
+                {
+                    if (_isRunning == false) return;
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public void SendAllUDP(String message)
+    {
+        for (var socket : _udpSockets)
+        {
+            DatagramPacket packet = new DatagramPacket(message.getBytes(), message.length(), socket.address, socket.port);
+            try
+            {
+                _udpSocket.send(packet);
+            }
+            catch (Exception e)
+            {
+                if (_isRunning == false) return;
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void HandleTCP(Socket clientSocket)
+    {
         new Thread(() -> {
             try {
                 InputStream inputStream = clientSocket.getInputStream();
@@ -97,7 +165,7 @@ public class Server extends Thread
                 try
                 {
                     clientSocket.close();
-                    _connectedSockets.remove(clientSocket);
+                    _tcpSockets.remove(clientSocket);
                 }
                 catch (IOException e)
                 {
@@ -105,5 +173,40 @@ public class Server extends Thread
                 }
             }
         }).start();
+    }
+
+    
+    public class UDPSocket implements Comparable<UDPSocket>
+    {
+        InetAddress address;
+        int port;
+
+        @Override
+        public int compareTo(UDPSocket otherSocket)
+        {
+            // Your comparison logic goes here
+            // For example, you might compare based on address and then port
+            if (this.address.toString().equals(otherSocket.address.toString()))
+            {
+                return Integer.compare(this.port, otherSocket.port);
+            }
+            return -1;
+        }
+
+        @Override
+        public boolean equals(Object obj)
+        {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+
+            UDPSocket udpSocket = (UDPSocket) obj;
+            return port == udpSocket.port && this.address.toString().equals(udpSocket.address.toString());
+        }
+
+        @Override
+        public int hashCode()
+        {
+            return Objects.hash(address.toString(), port);
+        }
     }
 }
