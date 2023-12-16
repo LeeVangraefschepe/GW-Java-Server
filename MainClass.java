@@ -1,10 +1,25 @@
+import java.util.Scanner;
+
 public class MainClass
 {
     public static void main(String[] args)
     {
-        for (int i = 0; i < 5; ++i)
+        Scanner scanner = new Scanner(System.in);
+
+         System.out.println("Started server on port: 1234");
+        Server server = new Server(1234);
+        server.StartListening();
+
+        while (true)
         {
-            System.out.println("Hello world!");
+            String input = scanner.nextLine();
+            if (input.compareToIgnoreCase("stop") == 0) break;
         }
+        
+        server.StopListening();
+
+        System.out.println("Server stopped");
+
+        scanner.close();
     }
 }
