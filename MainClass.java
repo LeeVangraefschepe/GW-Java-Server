@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import org.json.simple.JSONObject;
+
 public class MainClass
 {
     public static void main(String[] args)
@@ -17,6 +19,16 @@ public class MainClass
         {
             String input = scanner.nextLine();
             if (input.compareToIgnoreCase("stop") == 0) break;
+
+            if (input.compareToIgnoreCase("test") == 0)
+            {
+                System.out.println("Sending test");
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("PacketId", 20);
+                jsonObject.put("Chunk", 69);
+                server.SendAllTCP(jsonObject.toJSONString());
+                System.out.println("Sending is sent");
+            }
         }
         
         server.StopListening();

@@ -72,7 +72,7 @@ public class Server extends Thread
                 Socket clientSocket = _tcpSocket.accept();
                 _tcpSockets.add(clientSocket);
                 HandleTCP(clientSocket);
-                System.out.println("Client connected!");               
+                System.out.println("Client connected!");
             }
             catch (IOException e)
             {
