@@ -103,10 +103,6 @@ public class Server extends Thread
                     senderSocket.address = udpPacket.getAddress();
                     senderSocket.port = udpPacket.getPort();
                     _udpSockets.add(senderSocket);
-
-                    System.out.println("UDP socket size: " + _udpSockets.size());
-
-                    SendAllUDP("Hello does this work?");
                 }
                 catch (Exception e)
                 {
@@ -129,6 +125,23 @@ public class Server extends Thread
             catch (Exception e)
             {
                 if (_isRunning == false) return;
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void SendAllTCP(String message)
+    {
+        for (var socket : _tcpSockets)
+        {
+            try
+            {
+                var outputStream = socket.getOutputStream();
+                outputStream.write(message.getBytes());
+                outputStream.flush();
+            }
+            catch (Exception e)
+            {
                 e.printStackTrace();
             }
         }
