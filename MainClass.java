@@ -11,7 +11,7 @@ public class MainClass
 
         Scanner scanner = new Scanner(System.in);
 
-         System.out.println("Started server on port: 1234");
+        System.out.println("Started server on port: 1234");
         Server server = new Server(1234);
         server.StartListening();
 
@@ -28,6 +28,22 @@ public class MainClass
                 jsonObject.put("Chunk", 69);
                 server.SendAllTCP(jsonObject.toJSONString());
                 System.out.println("Sending is sent");
+            }
+
+            if (input.compareToIgnoreCase("print") == 0)
+            {
+                var packet = server.GetPacket();
+                if (packet == null)
+                {
+                    System.out.println("No new packets to print");
+                    continue;
+                }
+                while (packet != null)
+                {
+                    String receivedData = new String(packet, 8, packet.length-8);
+                    System.out.println(receivedData);
+                    packet = server.GetPacket();
+                }
             }
         }
         

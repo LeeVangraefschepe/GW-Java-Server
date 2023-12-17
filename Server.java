@@ -6,7 +6,9 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Objects;
 
 public class Server extends Thread
@@ -16,6 +18,8 @@ public class Server extends Thread
     private LinkedHashSet<Socket> _tcpSockets = new LinkedHashSet<>();
     private LinkedHashSet<UDPSocket> _udpSockets = new LinkedHashSet<>();
     private boolean _isRunning = false;
+
+    private List<byte[]> _packets = new ArrayList<>();
 
     public Server(int port)
     {
@@ -28,6 +32,14 @@ public class Server extends Thread
         {
             e.printStackTrace();
         }
+    }
+
+    public byte[] GetPacket()
+    {
+        if (_packets.isEmpty()) return null;
+        var packet = _packets.get(_packets.size()-1);
+        _packets.remove(_packets.size()-1);
+        return packet;
     }
 
     public void StartListening()
@@ -94,10 +106,11 @@ public class Server extends Thread
                     DatagramPacket udpPacket = new DatagramPacket(udpBuffer, udpBuffer.length);
                     _udpSocket.receive(udpPacket);
 
-                    String receivedData = new String(udpBuffer, 8, udpBuffer.length-8);
+                    _packets.add(udpBuffer);
+                    //String receivedData = new String(udpBuffer, 8, udpBuffer.length-8);
 
-                    System.out.println("UDP Packet from: " + udpPacket.getSocketAddress());
-                    System.out.println(receivedData);
+                    //System.out.println("UDP Packet from: " + udpPacket.getSocketAddress());
+                    //System.out.println(receivedData);
 
                     UDPSocket senderSocket = new UDPSocket();
                     senderSocket.address = udpPacket.getAddress();
@@ -163,10 +176,12 @@ public class Server extends Thread
 
                 while ((bytesRead = inputStream.read(buffer)) != -1)
                 {
-                    String receivedData = new String(buffer, 0, bytesRead);
+                    _packets.add(buffer);
+                    //String receivedData = new String(buffer, 0, bytesRead);
 
                     // Process the received data (you can modify this part based on your requirements)
-                    System.out.println("Received data from client: " + receivedData.length());
+                    //System.out.println("Received data from client: " + receivedData.length());
+                    
                 }
             }
             catch (IOException e)
