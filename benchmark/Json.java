@@ -1,5 +1,4 @@
 package benchmark;
-//import java.util.concurrent.TimeUnit;
 
 import networking.Server;
 import packets.JsonPacket;
@@ -18,10 +17,10 @@ public class Json extends BaseBenchmark
         JsonPacket[] packets = new JsonPacket[8];
 
         Benchmark allPackets = new Benchmark();
-        int length = 0;
-        for (int x = 0; x < 5000; ++x)
+        long length = 0;
+        int amount = 5000;
+        for (int x = 0; x < amount; ++x)
         {
-            length = 0;
             allPackets.StartBenchmark();
             for (int i = 0; i < packets.length; ++i)
             {
@@ -34,18 +33,60 @@ public class Json extends BaseBenchmark
                 length += data.length();
             }
             allPackets.StopBenchmark();
-
-            /*try
-            {
-                TimeUnit.MILLISECONDS.sleep(100);
-                
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-            }*/
         }
         
-        System.out.println("Total packets length: " + length);
+        System.out.println("Total packets length: " + length / amount);
+        System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+    }
+
+    public void PlayerUpdate()
+    {
+        Benchmark allPackets = new Benchmark();
+        long length = 0;
+        int amount = 50000;
+        for (int x = 0; x < amount; ++x)
+        {
+            allPackets.StartBenchmark();
+
+            JsonPacket packet = new JsonPacket();
+            packet.SetInt16((short)20, "PacketId");
+            packet.SetInt32((int)1564815618, "PlayerId");
+            packet.SetFloat3(100f, 72f, -500f, "Position");
+            packet.SetUChar((byte)20, "Health");
+            packet.SetBoolean(false, "OnGround");
+            packet.SetFloat3(20f, 50f, 180f, "Rotation");
+            packet.SetFloat3(20f, 50f, 180f, "HeadRotation");
+            var data = packet.GetData();
+            
+            allPackets.StopBenchmark();
+            length += data.length();
+        }
+        
+        System.out.println("Total packets length: " + length / amount);
+        System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+    }
+
+    public void BlockUpdate()
+    {
+        Benchmark allPackets = new Benchmark();
+        long length = 0;
+        int amount = 50000;
+        for (int x = 0; x < amount; ++x)
+        {
+            allPackets.StartBenchmark();
+
+            JsonPacket packet = new JsonPacket();
+            packet.SetInt16((short)20, "PacketId");
+            packet.SetFloat3(100f, 72f, -500f, "Position");
+            packet.SetInt16((short)1500, "BlockId");
+            packet.SetUChar((byte)4, "BlockData");
+            var data = packet.GetData();
+
+            allPackets.StopBenchmark();
+            length += data.length();
+        }
+        
+        System.out.println("Total packets length: " + length / amount);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
 }

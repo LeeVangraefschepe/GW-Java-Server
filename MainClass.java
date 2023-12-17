@@ -16,16 +16,16 @@ public class MainClass
         Server server = new Server(7777);
         server.StartListening();
 
+        Json benchmark = new Json(server);
+
         while (true)
         {
             String input = scanner.nextLine();
             if (input.compareToIgnoreCase("stop") == 0) break;
 
-            if (input.compareToIgnoreCase("test") == 0)
-            {
-                Json benchmark = new Json(server);
-                benchmark.FullChunk();
-            }
+            if (input.compareToIgnoreCase("chunk") == 0) benchmark.FullChunk();
+            if (input.compareToIgnoreCase("player update") == 0) benchmark.PlayerUpdate();
+            if (input.compareToIgnoreCase("block update") == 0) benchmark.BlockUpdate();
 
             if (input.compareToIgnoreCase("print") == 0)
             {
