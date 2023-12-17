@@ -1,5 +1,7 @@
 import java.util.Scanner;
-import packets.JsonPacket;
+
+import benchmark.Json;
+import networking.Server;
 
 public class MainClass
 {
@@ -21,14 +23,8 @@ public class MainClass
 
             if (input.compareToIgnoreCase("test") == 0)
             {
-                System.out.println("Sending test");
-                
-                JsonPacket packet = new JsonPacket();
-                packet.SetUChar((byte)20, input);
-                packet.SetInt32(69, "Chunk");
-            
-                server.SendAllTCP(packet.GetData());
-                System.out.println("Sending is sent");
+                Json benchmark = new Json(server);
+                benchmark.FullChunk();
             }
 
             if (input.compareToIgnoreCase("print") == 0)

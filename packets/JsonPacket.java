@@ -66,22 +66,22 @@ public class JsonPacket implements BasePacket
     {
         _jsonObject.put(key, value);
     }
-    public void SetChunk(int[][][] value, String key)
+    public void SetChunk(short[][][] value, String key)
     {
         _jsonObject.put(key, Convert3DArrayToJsonArray(value));
     }
 
-    private static JSONArray Convert3DArrayToJsonArray(int[][][] array3D)
+    private static JSONArray Convert3DArrayToJsonArray(short[][][] array3D)
     {
         JSONArray result = new JSONArray();
-        for (int[][] array2D : array3D)
+        for (short[][] array2D : array3D)
         {
             JSONArray array2DJson = new JSONArray();
 
-            for (int[] array1D : array2D)
+            for (short[] array1D : array2D)
             {
                 JSONArray array1DJson = new JSONArray();
-                for (int value : array1D)
+                for (short value : array1D)
                 {
                     array1DJson.add(value);
                 }
