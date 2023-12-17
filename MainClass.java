@@ -12,8 +12,8 @@ public class MainClass
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Started server on port: 1234");
-        Server server = new Server(1234);
+        System.out.println("Started server on port: 7777");
+        Server server = new Server(7777);
         server.StartListening();
 
         while (true)
