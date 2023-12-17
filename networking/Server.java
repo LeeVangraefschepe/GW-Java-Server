@@ -173,11 +173,6 @@ public class Server extends Thread
                 while (inputStream.read(buffer) != -1)
                 {
                     _packets.add(buffer);
-                    //String receivedData = new String(buffer, 0, bytesRead);
-
-                    // Process the received data (you can modify this part based on your requirements)
-                    //System.out.println("Received data from client: " + receivedData.length());
-                    
                 }
             }
             catch (IOException e)
