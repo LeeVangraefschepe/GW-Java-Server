@@ -108,10 +108,6 @@ public class Server extends Thread
                     _udpSocket.receive(udpPacket);
 
                     _packets.add(udpBuffer);
-                    //String receivedData = new String(udpBuffer, 8, udpBuffer.length-8);
-
-                    //System.out.println("UDP Packet from: " + udpPacket.getSocketAddress());
-                    //System.out.println(receivedData);
 
                     UDPSocket senderSocket = new UDPSocket();
                     senderSocket.address = udpPacket.getAddress();
