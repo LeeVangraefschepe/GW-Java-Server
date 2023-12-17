@@ -172,9 +172,8 @@ public class Server extends Thread
                 outputStream.flush();
 
                 byte[] buffer = new byte[1024];
-                int bytesRead;
 
-                while ((bytesRead = inputStream.read(buffer)) != -1)
+                while (inputStream.read(buffer) != -1)
                 {
                     _packets.add(buffer);
                     //String receivedData = new String(buffer, 0, bytesRead);

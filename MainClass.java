@@ -1,6 +1,5 @@
 import java.util.Scanner;
-
-import org.json.simple.JSONObject;
+import packets.JsonPacket;
 
 public class MainClass
 {
@@ -23,10 +22,12 @@ public class MainClass
             if (input.compareToIgnoreCase("test") == 0)
             {
                 System.out.println("Sending test");
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("PacketId", 20);
-                jsonObject.put("Chunk", 69);
-                server.SendAllTCP(jsonObject.toJSONString());
+                
+                JsonPacket packet = new JsonPacket();
+                packet.SetUChar((byte)20, input);
+                packet.SetInt32(69, "Chunk");
+            
+                server.SendAllTCP(packet.GetData());
                 System.out.println("Sending is sent");
             }
 
