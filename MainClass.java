@@ -27,6 +27,9 @@ public class MainClass
             if (input.compareToIgnoreCase("chunk") == 0) benchmark.FullChunk();
             if (input.compareToIgnoreCase("player update") == 0) benchmark.PlayerUpdate();
             if (input.compareToIgnoreCase("block update") == 0) benchmark.BlockUpdate();
+            if (input.compareToIgnoreCase("input") == 0) benchmark.Input();
+            if (input.compareToIgnoreCase("player join") == 0) benchmark.PlayerJoin();
+            if (input.compareToIgnoreCase("chat message") == 0) benchmark.ChatMessage();
 
             if (input.compareToIgnoreCase("print") == 0)
             {

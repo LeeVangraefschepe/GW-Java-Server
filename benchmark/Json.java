@@ -1,6 +1,7 @@
 package benchmark;
 
 import networking.Server;
+import packets.BasePacket;
 import packets.JsonPacket;
 
 public class Json extends BaseBenchmark
@@ -14,7 +15,7 @@ public class Json extends BaseBenchmark
     public void FullChunk()
     {
         var chunk = GenerateRandomChunk(48);
-        JsonPacket[] packets = new JsonPacket[8];
+        BasePacket[] packets = new JsonPacket[8];
 
         Benchmark allPackets = new Benchmark();
         long length = 0;
@@ -24,7 +25,7 @@ public class Json extends BaseBenchmark
             allPackets.StartBenchmark();
             for (int i = 0; i < packets.length; ++i)
             {
-                JsonPacket packet = new JsonPacket();
+                BasePacket packet = new JsonPacket();
                 packet.SetInt16((short)20, "PacketId");
                 packet.SetIVec2(0, 0, "Position");
                 packet.SetUChar((byte)0, "Biome");
@@ -48,7 +49,7 @@ public class Json extends BaseBenchmark
         {
             allPackets.StartBenchmark();
 
-            JsonPacket packet = new JsonPacket();
+            BasePacket packet = new JsonPacket();
             packet.SetInt16((short)20, "PacketId");
             packet.SetInt32((int)1564815618, "PlayerId");
             packet.SetFloat3(100f, 72f, -500f, "Position");
@@ -75,7 +76,7 @@ public class Json extends BaseBenchmark
         {
             allPackets.StartBenchmark();
 
-            JsonPacket packet = new JsonPacket();
+            BasePacket packet = new JsonPacket();
             packet.SetInt16((short)20, "PacketId");
             packet.SetFloat3(100f, 72f, -500f, "Position");
             packet.SetInt16((short)1500, "BlockId");
@@ -90,11 +91,83 @@ public class Json extends BaseBenchmark
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
 
+    public void Input()
+    {
+        Benchmark allPackets = new Benchmark();
+        long length = 0;
+        int amount = 50000;
+        for (int x = 0; x < amount; ++x)
+        {
+            allPackets.StartBenchmark();
+
+            BasePacket packet = new JsonPacket();
+            packet.SetInt16((short)20, "PacketId");
+            packet.SetInt32((int)1564815618, "PlayerId");
+            packet.SetUChar((byte)58, "InputType");
+            packet.SetUChar((byte)2, "InputAction");
+            var data = packet.GetData();
+
+            allPackets.StopBenchmark();
+            length += data.length();
+        }
+        
+        System.out.println("Total packets length: " + length / amount);
+        System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+    }
+
+    public void PlayerJoin()
+    {
+        Benchmark allPackets = new Benchmark();
+        long length = 0;
+        int amount = 50000;
+        for (int x = 0; x < amount; ++x)
+        {
+            allPackets.StartBenchmark();
+
+            BasePacket packet = new JsonPacket();
+            packet.SetInt16((short)20, "PacketId");
+            packet.SetInt32((int)1564815618, "PlayerId");
+            packet.SetString("lee_vgs123457890", "Message");
+            packet.SetFloat3(100f, 72f, -500f, "Position");
+            var data = packet.GetData();
+
+            allPackets.StopBenchmark();
+            length += data.length();
+        }
+        
+        System.out.println("Total packets length: " + length / amount);
+        System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+    }
+
+    public void ChatMessage()
+    {
+        Benchmark allPackets = new Benchmark();
+        long length = 0;
+        int amount = 50000;
+        for (int x = 0; x < amount; ++x)
+        {
+            allPackets.StartBenchmark();
+
+            BasePacket packet = new JsonPacket();
+            packet.SetInt16((short)20, "PacketId");
+            packet.SetInt32((int)1564815618, "PlayerId");
+            packet.SetString("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis arcu ex, fermentum et faucibus facilisis, eleifend eget lacus. Mauris ex tortor, efficitur sit amet blandit ut, lacinia ultrices ante. Integer condimentum in.", "Message");
+            var data = packet.GetData();
+
+            allPackets.StopBenchmark();
+            length += data.length();
+        }
+        
+        System.out.println("Total packets length: " + length / amount);
+        System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+    }
+
     public void TestReadWrite()
     {
+        System.out.println("Test read write.");
         var chunk = GenerateRandomChunk(32);
 
-        JsonPacket packet = new JsonPacket();
+        BasePacket packet = new JsonPacket();
         packet.SetInt16((short)20, "PacketId");
         packet.SetIVec2(0, 0, "Position");
         packet.SetUChar((byte)0, "Biome");
