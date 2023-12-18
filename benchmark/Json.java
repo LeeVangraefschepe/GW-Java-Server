@@ -30,10 +30,25 @@ public class Json extends BaseBenchmark
                 packet.SetIVec2(0, 0, "Position");
                 packet.SetUChar((byte)0, "Biome");
                 packet.SetChunk(chunk, "Chunk");
+
                 var data = packet.GetData();
                 length += data.length();
             }
             allPackets.StopBenchmark();
+        }
+
+        if (_sendPacket)
+        {
+            for (int i = 0; i < packets.length; ++i)
+            {
+                BasePacket packet = new JsonPacket();
+                packet.SetInt16((short)20, "PacketId");
+                packet.SetIVec2(0, 0, "Position");
+                packet.SetUChar((byte)0, "Biome");
+                packet.SetChunk(chunk, "Chunk");
+
+                _server.SendAllUDP(packet.GetData());
+            }
         }
         
         System.out.println("Total packets length: " + length / _amountLarge);
@@ -61,6 +76,7 @@ public class Json extends BaseBenchmark
             
             allPackets.StopBenchmark();
             length += data.length();
+            if (_sendPacket) _server.SendAllUDP(data);
         }
         
         System.out.println("Total packets length: " + length / _amountSmall);
@@ -85,6 +101,7 @@ public class Json extends BaseBenchmark
 
             allPackets.StopBenchmark();
             length += data.length();
+            if (_sendPacket) _server.SendAllUDP(data);
         }
         
         System.out.println("Total packets length: " + length / _amountSmall);
@@ -109,6 +126,7 @@ public class Json extends BaseBenchmark
 
             allPackets.StopBenchmark();
             length += data.length();
+            if (_sendPacket) _server.SendAllUDP(data);
         }
         
         System.out.println("Total packets length: " + length / _amountSmall);
@@ -133,6 +151,7 @@ public class Json extends BaseBenchmark
 
             allPackets.StopBenchmark();
             length += data.length();
+            if (_sendPacket) _server.SendAllUDP(data);
         }
         
         System.out.println("Total packets length: " + length / _amountSmall);
@@ -156,6 +175,7 @@ public class Json extends BaseBenchmark
 
             allPackets.StopBenchmark();
             length += data.length();
+            if (_sendPacket) _server.SendAllUDP(data);
         }
         
         System.out.println("Total packets length: " + length / _amountSmall);

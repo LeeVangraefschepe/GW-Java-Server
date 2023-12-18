@@ -6,6 +6,7 @@ public abstract class BaseBenchmark
 {
     protected int _amountLarge = 5000;
     protected int _amountSmall = 50000;
+    protected boolean _sendPacket = false;
 
     protected short[][][] GenerateRandomChunk(int height)
     {
@@ -24,6 +25,11 @@ public abstract class BaseBenchmark
         }
 
         return blockData;
+    }
+
+    public void SetSending(boolean value)
+    {
+        _sendPacket = value;
     }
 
     public void SetBenchmarkAmount(int amountLarge, int amountSmall)

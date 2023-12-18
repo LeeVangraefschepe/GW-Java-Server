@@ -19,6 +19,7 @@ public class MainClass
 
         BaseBenchmark benchmark = new Json(server);
         benchmark.TestReadWrite();
+        benchmark.SetBenchmarkAmount(1, 1);
 
         while (true)
         {
@@ -34,6 +35,9 @@ public class MainClass
 
             if (input.compareToIgnoreCase("one shot") == 0) benchmark.SetBenchmarkAmount(1, 1);
             if (input.compareToIgnoreCase("big shot") == 0) benchmark.SetBenchmarkAmount(5000, 50000);
+
+            if (input.compareToIgnoreCase("send on") == 0) benchmark.SetSending(true);
+            if (input.compareToIgnoreCase("send off") == 0) benchmark.SetSending(false);
 
             if (input.compareToIgnoreCase("print") == 0)
             {
