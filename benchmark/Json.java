@@ -89,4 +89,23 @@ public class Json extends BaseBenchmark
         System.out.println("Total packets length: " + length / amount);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
+
+    public void TestReadWrite()
+    {
+        var chunk = GenerateRandomChunk(32);
+
+        JsonPacket packet = new JsonPacket();
+        packet.SetInt16((short)20, "PacketId");
+        packet.SetIVec2(0, 0, "Position");
+        packet.SetUChar((byte)0, "Biome");
+        packet.SetChunk(chunk, "Chunk");
+
+        if (packet.GetInt16("PacketId") != (short)20) System.out.println("Int16 failed test");
+        if (packet.GetIVec2("Position")[0] != 0) System.out.println("IVec2x failed test");
+        if (packet.GetIVec2("Position")[1] != 0) System.out.println("IVec2y failed test");
+        if (packet.GetUChar("Biome") != (byte)0) System.out.println("UChar failed test");
+        if (packet.GetChunk("Chunk")[10][20][9] != chunk[10][20][9]) System.out.println("Chunk failed test");
+
+        System.out.println("Test is done.");
+    }
 }

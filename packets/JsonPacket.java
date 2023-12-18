@@ -7,12 +7,68 @@ public class JsonPacket implements BasePacket
 {
     JSONObject _jsonObject = new JSONObject();
 
+    //#region Getters
     @Override
     public String GetData()
     {
         return _jsonObject.toJSONString();
     }
+    public byte GetUChar(String key)
+    {
+        return (byte)_jsonObject.get(key);
+    }
+    public int GetInt32(String key)
+    {
+        return (int)_jsonObject.get(key);
+    }
+    public short GetInt16(String key)
+    {
+        return (short)_jsonObject.get(key);
+    }
+    public float[] GetFloat3(String key)
+    {
+        return (float[])_jsonObject.get(key);
+    }
+    public boolean GetBoolean(String key)
+    {
+        return (boolean)_jsonObject.get(key);
+    }
+    public int[] GetIVec2(String key)
+    {
+        return (int[])_jsonObject.get(key);
+    }
+    public int[] GetIVec3(String key)
+    {
+        return (int[])_jsonObject.get(key);
+    }
+    public String GetString(String key)
+    {
+        return (String)_jsonObject.get(key);
+    }
+    public short[][][] GetChunk(String key)
+    {
+        JSONArray jsonArray = (JSONArray)_jsonObject.get(key);
 
+        short[][][] result = new short[jsonArray.size()][][];
+        for (int i = 0; i < jsonArray.size(); i++)
+        {
+            JSONArray innerArray = (JSONArray) jsonArray.get(i);
+            result[i] = new short[innerArray.size()][];
+            for (int j = 0; j < innerArray.size(); j++)
+            {
+                JSONArray innermostArray = (JSONArray) innerArray.get(j);
+                result[i][j] = new short[innermostArray.size()];
+                for (int k = 0; k < innermostArray.size(); k++)
+                {
+                    result[i][j][k] = ((Number) innermostArray.get(k)).shortValue();
+                }
+            }
+        }
+        return result;
+    }
+    //#endregion
+
+    //#region Setters
     @Override
     public void SetData(byte[] data)
     {
@@ -28,7 +84,6 @@ public class JsonPacket implements BasePacket
             e.printStackTrace();
         }
     }
-
     public void SetUChar(byte value, String key)
     {
         _jsonObject.put(key, value);
@@ -43,9 +98,8 @@ public class JsonPacket implements BasePacket
     }
     public void SetFloat3(float x, float y, float z, String key)
     {
-        _jsonObject.put(key+"x", x);
-        _jsonObject.put(key+"y", y);
-        _jsonObject.put(key+"z", z);
+        float[] data = {x, y, z};
+        _jsonObject.put(key, data);
     }
     public void SetBoolean(boolean value, String key)
     {
@@ -53,14 +107,13 @@ public class JsonPacket implements BasePacket
     }
     public void SetIVec2(int x, int y, String key)
     {
-        _jsonObject.put(key+"x", x);
-        _jsonObject.put(key+"y", y);
+        int[] data = {x, y};
+        _jsonObject.put(key, data);
     }
     public void SetIVec3(int x, int y, int z, String key)
     {
-        _jsonObject.put(key+"x", x);
-        _jsonObject.put(key+"y", y);
-        _jsonObject.put(key+"z", z);
+        int[] data = {x, y, z};
+        _jsonObject.put(key, data);
     }
     public void SetString(String value, String key)
     {
@@ -70,6 +123,7 @@ public class JsonPacket implements BasePacket
     {
         _jsonObject.put(key, Convert3DArrayToJsonArray(value));
     }
+    //#endregion
 
     private static JSONArray Convert3DArrayToJsonArray(short[][][] array3D)
     {
