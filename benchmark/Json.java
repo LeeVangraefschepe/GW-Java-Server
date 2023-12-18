@@ -12,6 +12,7 @@ public class Json extends BaseBenchmark
         _server = server;
     }
 
+    @Override
     public void FullChunk()
     {
         var chunk = GenerateRandomChunk(48);
@@ -19,8 +20,7 @@ public class Json extends BaseBenchmark
 
         Benchmark allPackets = new Benchmark();
         long length = 0;
-        int amount = 5000;
-        for (int x = 0; x < amount; ++x)
+        for (int x = 0; x < _amountLarge; ++x)
         {
             allPackets.StartBenchmark();
             for (int i = 0; i < packets.length; ++i)
@@ -36,16 +36,16 @@ public class Json extends BaseBenchmark
             allPackets.StopBenchmark();
         }
         
-        System.out.println("Total packets length: " + length / amount);
+        System.out.println("Total packets length: " + length / _amountLarge);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
 
+    @Override
     public void PlayerUpdate()
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
-        int amount = 50000;
-        for (int x = 0; x < amount; ++x)
+        for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
@@ -63,16 +63,16 @@ public class Json extends BaseBenchmark
             length += data.length();
         }
         
-        System.out.println("Total packets length: " + length / amount);
+        System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
 
+    @Override
     public void BlockUpdate()
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
-        int amount = 50000;
-        for (int x = 0; x < amount; ++x)
+        for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
@@ -87,16 +87,16 @@ public class Json extends BaseBenchmark
             length += data.length();
         }
         
-        System.out.println("Total packets length: " + length / amount);
+        System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
 
+    @Override
     public void Input()
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
-        int amount = 50000;
-        for (int x = 0; x < amount; ++x)
+        for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
@@ -111,16 +111,16 @@ public class Json extends BaseBenchmark
             length += data.length();
         }
         
-        System.out.println("Total packets length: " + length / amount);
+        System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
 
+    @Override
     public void PlayerJoin()
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
-        int amount = 50000;
-        for (int x = 0; x < amount; ++x)
+        for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
@@ -135,16 +135,16 @@ public class Json extends BaseBenchmark
             length += data.length();
         }
         
-        System.out.println("Total packets length: " + length / amount);
+        System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
 
+    @Override
     public void ChatMessage()
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
-        int amount = 50000;
-        for (int x = 0; x < amount; ++x)
+        for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
@@ -158,10 +158,11 @@ public class Json extends BaseBenchmark
             length += data.length();
         }
         
-        System.out.println("Total packets length: " + length / amount);
+        System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
 
+    @Override
     public void TestReadWrite()
     {
         System.out.println("Test read write.");

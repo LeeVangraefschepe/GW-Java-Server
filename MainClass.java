@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import benchmark.BaseBenchmark;
 import benchmark.Json;
 import networking.Server;
 
@@ -16,20 +17,23 @@ public class MainClass
         Server server = new Server(7777);
         server.StartListening();
 
-        Json benchmark = new Json(server);
+        BaseBenchmark benchmark = new Json(server);
         benchmark.TestReadWrite();
 
         while (true)
         {
             String input = scanner.nextLine();
             if (input.compareToIgnoreCase("stop") == 0) break;
-
+            
             if (input.compareToIgnoreCase("chunk") == 0) benchmark.FullChunk();
             if (input.compareToIgnoreCase("player update") == 0) benchmark.PlayerUpdate();
             if (input.compareToIgnoreCase("block update") == 0) benchmark.BlockUpdate();
             if (input.compareToIgnoreCase("input") == 0) benchmark.Input();
             if (input.compareToIgnoreCase("player join") == 0) benchmark.PlayerJoin();
             if (input.compareToIgnoreCase("chat message") == 0) benchmark.ChatMessage();
+
+            if (input.compareToIgnoreCase("one shot") == 0) benchmark.SetBenchmarkAmount(1, 1);
+            if (input.compareToIgnoreCase("big shot") == 0) benchmark.SetBenchmarkAmount(5000, 50000);
 
             if (input.compareToIgnoreCase("print") == 0)
             {
