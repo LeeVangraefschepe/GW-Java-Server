@@ -13,38 +13,47 @@ public class JsonPacket implements BasePacket
     {
         return _jsonObject.toJSONString();
     }
+    @Override
     public byte GetUChar(String key)
     {
         return (byte)_jsonObject.get(key);
     }
+    @Override
     public int GetInt32(String key)
     {
         return (int)_jsonObject.get(key);
     }
+    @Override
     public short GetInt16(String key)
     {
         return (short)_jsonObject.get(key);
     }
+    @Override
     public float[] GetFloat3(String key)
     {
         return (float[])_jsonObject.get(key);
     }
+    @Override
     public boolean GetBoolean(String key)
     {
         return (boolean)_jsonObject.get(key);
     }
+    @Override
     public int[] GetIVec2(String key)
     {
         return (int[])_jsonObject.get(key);
     }
+    @Override
     public int[] GetIVec3(String key)
     {
         return (int[])_jsonObject.get(key);
     }
+    @Override
     public String GetString(String key)
     {
         return (String)_jsonObject.get(key);
     }
+    @Override
     public short[][][] GetChunk(String key)
     {
         JSONArray jsonArray = (JSONArray)_jsonObject.get(key);
@@ -84,41 +93,50 @@ public class JsonPacket implements BasePacket
             e.printStackTrace();
         }
     }
+    @Override
     public void SetUChar(byte value, String key)
     {
         _jsonObject.put(key, value);
     }
+    @Override
     public void SetInt32(int value, String key)
     {
         _jsonObject.put(key, value);
     }
+    @Override
     public void SetInt16(short value, String key)
     {
         _jsonObject.put(key, value);
     }
+    @Override
     public void SetFloat3(float x, float y, float z, String key)
     {
         float[] data = {x, y, z};
         _jsonObject.put(key, data);
     }
+    @Override
     public void SetBoolean(boolean value, String key)
     {
         _jsonObject.put(key, value);
     }
+    @Override
     public void SetIVec2(int x, int y, String key)
     {
         int[] data = {x, y};
         _jsonObject.put(key, data);
     }
+    @Override
     public void SetIVec3(int x, int y, int z, String key)
     {
         int[] data = {x, y, z};
         _jsonObject.put(key, data);
     }
+    @Override
     public void SetString(String value, String key)
     {
         _jsonObject.put(key, value);
     }
+    @Override
     public void SetChunk(short[][][] value, String key)
     {
         _jsonObject.put(key, Convert3DArrayToJsonArray(value));
