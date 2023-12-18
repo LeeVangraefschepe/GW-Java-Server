@@ -31,7 +31,13 @@ public class JsonPacket implements BasePacket
     @Override
     public float[] GetFloat3(String key)
     {
-        return (float[])_jsonObject.get(key);
+        float[] data = new float[3];
+        JSONArray jsonArray = (JSONArray)_jsonObject.get(key);
+        for (int i = 0; i < data.length; i++)
+        {
+            data[i] = ((Number) jsonArray.get(i)).floatValue();
+        }
+        return data;
     }
     @Override
     public boolean GetBoolean(String key)
@@ -41,12 +47,24 @@ public class JsonPacket implements BasePacket
     @Override
     public int[] GetIVec2(String key)
     {
-        return (int[])_jsonObject.get(key);
+        int[] data = new int[2];
+        JSONArray jsonArray = (JSONArray)_jsonObject.get(key);
+        for (int i = 0; i < data.length; i++)
+        {
+            data[i] = ((Number)jsonArray.get(i)).intValue();
+        }
+        return data;
     }
     @Override
     public int[] GetIVec3(String key)
     {
-        return (int[])_jsonObject.get(key);
+        int[] data = new int[3];
+        JSONArray jsonArray = (JSONArray)_jsonObject.get(key);
+        for (int i = 0; i < data.length; i++)
+        {
+            data[i] = ((Number)jsonArray.get(i)).intValue();
+        }
+        return data;
     }
     @Override
     public String GetString(String key)
@@ -111,7 +129,9 @@ public class JsonPacket implements BasePacket
     @Override
     public void SetFloat3(float x, float y, float z, String key)
     {
-        float[] data = {x, y, z};
+        JSONArray data = new JSONArray();
+        data.add(x);
+        data.add(y);
         _jsonObject.put(key, data);
     }
     @Override
@@ -122,13 +142,18 @@ public class JsonPacket implements BasePacket
     @Override
     public void SetIVec2(int x, int y, String key)
     {
-        int[] data = {x, y};
+        JSONArray data = new JSONArray();
+        data.add(x);
+        data.add(y);
         _jsonObject.put(key, data);
     }
     @Override
     public void SetIVec3(int x, int y, int z, String key)
     {
-        int[] data = {x, y, z};
+        JSONArray data = new JSONArray();
+        data.add(x);
+        data.add(y);
+        data.add(z);
         _jsonObject.put(key, data);
     }
     @Override

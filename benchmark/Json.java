@@ -65,7 +65,7 @@ public class Json extends BaseBenchmark
             allPackets.StartBenchmark();
 
             BasePacket packet = new JsonPacket();
-            packet.SetInt16((short)20, "PacketId");
+            packet.SetInt16((short)10, "PacketId");
             packet.SetInt32((int)1564815618, "PlayerId");
             packet.SetFloat3(100f, 72f, -500f, "Position");
             packet.SetUChar((byte)20, "Health");
@@ -93,7 +93,7 @@ public class Json extends BaseBenchmark
             allPackets.StartBenchmark();
 
             BasePacket packet = new JsonPacket();
-            packet.SetInt16((short)20, "PacketId");
+            packet.SetInt16((short)11, "PacketId");
             packet.SetFloat3(100f, 72f, -500f, "Position");
             packet.SetInt16((short)1500, "BlockId");
             packet.SetUChar((byte)4, "BlockData");
@@ -118,7 +118,7 @@ public class Json extends BaseBenchmark
             allPackets.StartBenchmark();
 
             BasePacket packet = new JsonPacket();
-            packet.SetInt16((short)20, "PacketId");
+            packet.SetInt16((short)12, "PacketId");
             packet.SetInt32((int)1564815618, "PlayerId");
             packet.SetUChar((byte)58, "InputType");
             packet.SetUChar((byte)2, "InputAction");
@@ -143,7 +143,7 @@ public class Json extends BaseBenchmark
             allPackets.StartBenchmark();
 
             BasePacket packet = new JsonPacket();
-            packet.SetInt16((short)20, "PacketId");
+            packet.SetInt16((short)13, "PacketId");
             packet.SetInt32((int)1564815618, "PlayerId");
             packet.SetString("lee_vgs123457890", "Message");
             packet.SetFloat3(100f, 72f, -500f, "Position");
@@ -168,7 +168,7 @@ public class Json extends BaseBenchmark
             allPackets.StartBenchmark();
 
             BasePacket packet = new JsonPacket();
-            packet.SetInt16((short)20, "PacketId");
+            packet.SetInt16((short)14, "PacketId");
             packet.SetInt32((int)1564815618, "PlayerId");
             packet.SetString("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis arcu ex, fermentum et faucibus facilisis, eleifend eget lacus. Mauris ex tortor, efficitur sit amet blandit ut, lacinia ultrices ante. Integer condimentum in.", "Message");
             var data = packet.GetData();

@@ -162,11 +162,11 @@ public class Server extends Thread
         new Thread(() -> {
             try {
                 InputStream inputStream = clientSocket.getInputStream();
-                OutputStream outputStream = clientSocket.getOutputStream();
+                //OutputStream outputStream = clientSocket.getOutputStream();
 
                 // Example: Sending a welcome message to the client
-                outputStream.write("Welcome to the Minecraft server! Type 'exit' to disconnect.\n".getBytes());
-                outputStream.flush();
+                //outputStream.write("Welcome to the Minecraft server! Type 'exit' to disconnect.\n".getBytes());
+                //outputStream.flush();
 
                 byte[] buffer = new byte[1024];
 
