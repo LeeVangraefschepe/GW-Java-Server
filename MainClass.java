@@ -17,6 +17,7 @@ public class MainClass
         server.StartListening();
 
         Json benchmark = new Json(server);
+        benchmark.TestReadWrite();
 
         while (true)
         {

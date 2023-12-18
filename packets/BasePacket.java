@@ -13,5 +13,15 @@ public interface BasePacket
     //public void SetIVec2(int x, int y);
     //public void SetIVec3(int x, int y, int z);
     //public void SetString(String value);
-    //public void SetChunk(int[][][] value);
+    //public void SetChunk(short[][][] value);
+
+    //public byte GetUChar();
+    //public int GetInt32();
+    //public short GetInt16();
+    //public Float3 GetFloat3();
+    //public boolean GetBoolean();
+    //public iVec2 GetIVec2();
+    //public iVec3 GetIVec3();
+    //public String GetString();
+    //public short[][][] GetChunk();
 }
