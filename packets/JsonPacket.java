@@ -171,10 +171,11 @@ public class JsonPacket implements BasePacket
     private static JSONArray Convert3DArrayToJsonArray(short[][][] array3D)
     {
         JSONArray result = new JSONArray();
+    
         for (short[][] array2D : array3D)
         {
             JSONArray array2DJson = new JSONArray();
-
+    
             for (short[] array1D : array2D)
             {
                 JSONArray array1DJson = new JSONArray();
@@ -186,6 +187,7 @@ public class JsonPacket implements BasePacket
             }
             result.add(array2DJson);
         }
+    
         return result;
     }
 }

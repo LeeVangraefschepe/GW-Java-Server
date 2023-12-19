@@ -30,7 +30,7 @@ public class Json extends BaseBenchmark
                 packet.SetIVec2(0, 0, "Position");
                 packet.SetUChar((byte)0, "Biome");
                 packet.SetChunk(chunk, "Chunk");
-
+                
                 var data = packet.GetData();
                 length += data.length();
             }

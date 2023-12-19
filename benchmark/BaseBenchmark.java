@@ -49,20 +49,20 @@ public abstract class BaseBenchmark
     public class Benchmark
     {
         private long _startTime;
-        private float _averageTotal = 0f;
+        private double _averageTotal = 0f;
         private int _amount = 0;
         protected void StartBenchmark()
         {
             _startTime = System.nanoTime();
         }
 
-        protected float StopBenchmark()
+        protected double StopBenchmark()
         {
             long endTime = System.nanoTime();
 
             // Calculate and print the execution time
             long executionTimeInNanos = endTime - _startTime;
-            float executionTimeInMillis = (float) executionTimeInNanos / 1_000_000;
+            double executionTimeInMillis = (double)executionTimeInNanos / 1_000_000;
 
             _averageTotal += executionTimeInMillis;
             ++_amount;
@@ -70,9 +70,9 @@ public abstract class BaseBenchmark
             return executionTimeInMillis;
         }
 
-        protected float GetAverageMs()
+        protected double GetAverageMs()
         {
-            return _averageTotal /= _amount;
+            return _averageTotal / _amount;
         }
     }
 }
