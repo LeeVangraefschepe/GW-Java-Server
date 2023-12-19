@@ -94,7 +94,7 @@ public class Json extends BaseBenchmark
 
             BasePacket packet = new JsonPacket();
             packet.SetInt16((short)11, "PacketId");
-            packet.SetFloat3(100f, 72f, -500f, "Position");
+            packet.SetIVec3(100, 72, -500, "Position");
             packet.SetInt16((short)1500, "BlockId");
             packet.SetUChar((byte)4, "BlockData");
             var data = packet.GetData();
