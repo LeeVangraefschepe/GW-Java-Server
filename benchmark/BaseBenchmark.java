@@ -19,7 +19,7 @@ public abstract class BaseBenchmark
             {
                 for (int i = 0; i < array1d.length; ++i)
                 {
-                    array1d[i] = (short)rand.nextInt(1500);
+                    array1d[i] = 100;
                 }
             }
         }
