@@ -37,22 +37,22 @@ public class Json extends BaseBenchmark
             allPackets.StopBenchmark();
         }
 
-        if (_sendPacket)
+        BasePacket packet = new JsonPacket();
+        for (int i = 0; i < packets.length; ++i)
         {
-            for (int i = 0; i < packets.length; ++i)
-            {
-                BasePacket packet = new JsonPacket();
-                packet.SetInt16((short)20, "PacketId");
-                packet.SetIVec2(0, 0, "Position");
-                packet.SetUChar((byte)0, "Biome");
-                packet.SetChunk(chunk, "Chunk");
+                
+            packet.SetInt16((short)20, "PacketId");
+            packet.SetIVec2(0, 0, "Position");
+            packet.SetUChar((byte)0, "Biome");
+            packet.SetChunk(chunk, "Chunk");
 
-                _server.SendAllUDP(packet.GetData());
-            }
+            if (_sendPacket) _server.SendAllUDP(packet.GetData());
         }
         
         System.out.println("Total packets length: " + length / _amountLarge);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+
+        FullChunk(packet.GetData());
     }
 
     @Override
@@ -201,5 +201,31 @@ public class Json extends BaseBenchmark
         if (packet.GetChunk("Chunk")[10][20][9] != chunk[10][20][9]) System.out.println("Chunk failed test");
 
         System.out.println("Test is done.");
+    }
+
+    @Override
+    public void FullChunk(String data)
+    {
+        short[][][] chunk = new short[1][1][1];
+        int[] position = new int[1];
+        int biome = 0;
+        Benchmark allPackets = new Benchmark();
+
+        for (int x = 0; x < _amountLarge; ++x)
+        {
+            allPackets.StartBenchmark();
+            JsonPacket packet = new JsonPacket();
+            packet.SetData(data.getBytes());
+            chunk = packet.GetChunk("Chunk");
+            position = packet.GetIVec2("Position");
+            biome = packet.GetInt32("Biome");
+            allPackets.StopBenchmark();
+        }
+        
+
+        System.out.println("Block[0,0,0] " + chunk[0][0][0]);
+        System.out.println("Position (" + position[0] + "," + position[1] + ")");
+        System.out.println("Biome " + biome);
+        System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
 }

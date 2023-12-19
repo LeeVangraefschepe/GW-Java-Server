@@ -43,6 +43,8 @@ public abstract class BaseBenchmark
     public abstract void PlayerJoin();
     public abstract void ChatMessage();
 
+    public abstract void FullChunk(String packet);
+
     public class Benchmark
     {
         private long _startTime;

@@ -16,17 +16,17 @@ public class JsonPacket implements BasePacket
     @Override
     public byte GetUChar(String key)
     {
-        return (byte)_jsonObject.get(key);
+        return ((Number)_jsonObject.get(key)).byteValue();
     }
     @Override
     public int GetInt32(String key)
     {
-        return (int)_jsonObject.get(key);
+        return ((Number)_jsonObject.get(key)).intValue();
     }
     @Override
     public short GetInt16(String key)
     {
-        return (short)_jsonObject.get(key);
+        return ((Number)_jsonObject.get(key)).shortValue();
     }
     @Override
     public float[] GetFloat3(String key)
