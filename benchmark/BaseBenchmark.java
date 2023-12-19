@@ -1,7 +1,5 @@
 package benchmark;
 
-import java.util.Random;
-
 public abstract class BaseBenchmark
 {
     protected int _amountLarge = 5000;
@@ -10,7 +8,6 @@ public abstract class BaseBenchmark
 
     protected short[][][] GenerateRandomChunk(int height)
     {
-        Random rand = new Random(); 
         short[][][] blockData = new short[16][height][16];
 
         for (short[][] array2d : blockData)
