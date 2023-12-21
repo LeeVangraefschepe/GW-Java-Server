@@ -132,6 +132,7 @@ public class JsonPacket implements BasePacket
         JSONArray data = new JSONArray();
         data.add(x);
         data.add(y);
+        data.add(z);
         _jsonObject.put(key, data);
     }
     @Override
