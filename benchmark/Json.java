@@ -81,6 +81,16 @@ public class Json extends BaseBenchmark
         
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+
+        BasePacket packet = new JsonPacket();
+        packet.SetInt16((short)10, "PacketId");
+        packet.SetInt32((int)1564815618, "PlayerId");
+        packet.SetFloat3(100f, 72f, -500f, "Position");
+        packet.SetUChar((byte)20, "Health");
+        packet.SetBoolean(false, "OnGround");
+        packet.SetFloat3(20f, 50f, 180f, "Rotation");
+        packet.SetFloat3(20f, 50f, 180f, "HeadRotation");
+        PlayerUpdate(packet.GetData());
     }
 
     @Override
@@ -106,6 +116,13 @@ public class Json extends BaseBenchmark
         
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+
+        BasePacket packet = new JsonPacket();
+        packet.SetInt16((short)11, "PacketId");
+        packet.SetIVec3(100, 72, -500, "Position");
+        packet.SetInt16((short)1500, "BlockId");
+        packet.SetUChar((byte)4, "BlockData");
+        BlockUpdate(packet.GetData());
     }
 
     @Override
@@ -131,6 +148,14 @@ public class Json extends BaseBenchmark
         
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+
+        BasePacket packet = new JsonPacket();
+        packet.SetInt16((short)12, "PacketId");
+        packet.SetInt32((int)1564815618, "PlayerId");
+        packet.SetUChar((byte)58, "InputType");
+        packet.SetUChar((byte)2, "InputAction");
+
+        Input(packet.GetData());
     }
 
     @Override
@@ -156,6 +181,13 @@ public class Json extends BaseBenchmark
         
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+
+        BasePacket packet = new JsonPacket();
+        packet.SetInt16((short)13, "PacketId");
+        packet.SetInt32((int)1564815618, "PlayerId");
+        packet.SetString("lee_vgs123457890", "Message");
+        packet.SetFloat3(100f, 72f, -500f, "Position");
+        PlayerJoin(packet.GetData());
     }
 
     @Override
@@ -180,6 +212,12 @@ public class Json extends BaseBenchmark
         
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+        
+        BasePacket packet = new JsonPacket();
+        packet.SetInt16((short)14, "PacketId");
+        packet.SetInt32((int)1564815618, "PlayerId");
+        packet.SetString("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis arcu ex, fermentum et faucibus facilisis, eleifend eget lacus. Mauris ex tortor, efficitur sit amet blandit ut, lacinia ultrices ante. Integer condimentum in.", "Message");
+        ChatMessage(packet.GetData());
     }
 
     @Override
@@ -226,6 +264,157 @@ public class Json extends BaseBenchmark
         System.out.println("Block[0,0,0] " + chunk[0][0][0]);
         System.out.println("Position (" + position[0] + "," + position[1] + ")");
         System.out.println("Biome " + biome);
+        System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+    }
+
+    @Override
+    public void Input(String data)
+    {
+        short packetId = 0;
+        int playerId = 0;
+        byte inputType = 0, inputAction = 0;
+
+        Benchmark allPackets = new Benchmark();
+
+        for (int x = 0; x < _amountLarge; ++x)
+        {
+            allPackets.StartBenchmark();
+            JsonPacket packet = new JsonPacket();
+            packet.SetData(data.getBytes());
+
+            packetId = packet.GetInt16("PacketId");
+            playerId = packet.GetInt32("PlayerId");
+            inputType = packet.GetUChar("InputType");
+            inputAction = packet.GetUChar("InputAction");
+            allPackets.StopBenchmark();
+        }
+        
+        System.out.println("PacketId " + packetId);
+        System.out.println("PlayerId " + playerId);
+        System.out.println("InputType " + inputType);
+        System.out.println("InputAction " + inputAction);
+        System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+    }
+    @Override
+    public void BlockUpdate(String data)
+    {
+        short packetId = 0, blockId = 0;
+        int[] position = new int[1];
+        byte blockData = 0;
+
+        Benchmark allPackets = new Benchmark();
+
+        for (int x = 0; x < _amountLarge; ++x)
+        {
+            allPackets.StartBenchmark();
+            JsonPacket packet = new JsonPacket();
+            packet.SetData(data.getBytes());
+
+            packetId = packet.GetInt16("PacketId");
+            position = packet.GetIVec3("Position");
+            blockId = packet.GetInt16("BlockId");
+            blockData = packet.GetUChar("BlockData");
+            allPackets.StopBenchmark();
+        }
+        
+        System.out.println("PacketId " + packetId);
+        System.out.println("Position (" + position[0] + "," + position[1] + "," + position[2] + ")");
+        System.out.println("BlockId " + blockId);
+        System.out.println("BlockData " + blockData);
+        System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+    }
+    @Override
+    public void PlayerUpdate(String data)
+    {
+        short packetId = 0;
+        int playerId = 0;
+        float[] position = new float[1];
+        float[] rotation = new float[1];
+        float[] headRotation = new float[1];
+        boolean onGround = true;
+        byte health = 0;
+
+
+        Benchmark allPackets = new Benchmark();
+
+        for (int x = 0; x < _amountLarge; ++x)
+        {
+            allPackets.StartBenchmark();
+            JsonPacket packet = new JsonPacket();
+            packet.SetData(data.getBytes());
+
+            packetId = packet.GetInt16("PacketId");
+            playerId = packet.GetInt32("PlayerId");
+            position = packet.GetFloat3("Position");
+            health = packet.GetUChar("Health");
+            onGround = packet.GetBoolean("OnGround");
+            rotation = packet.GetFloat3("Rotation");
+            headRotation = packet.GetFloat3("HeadRotation");
+            allPackets.StopBenchmark();
+        }
+        
+        System.out.println("PacketId " + packetId);
+        System.out.println("PlayerId " + playerId);
+        System.out.println("Position (" + position[0] + "," + position[1] + "," + position[2] + ")");
+        System.out.println("Health " + health);
+        System.out.println("OnGround " + onGround);
+        System.out.println("Rotation (" + rotation[0] + "," + rotation[1] + "," + rotation[2] + ")");
+        System.out.println("HeadRotation (" + headRotation[0] + "," + headRotation[1] + "," + headRotation[2] + ")");
+        System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+    }
+    @Override
+    public void PlayerJoin(String data)
+    {
+        short packetId = 0;
+        int playerId = 0;
+        float[] position = new float[1];
+        String message = "";
+
+        Benchmark allPackets = new Benchmark();
+
+        for (int x = 0; x < _amountLarge; ++x)
+        {
+            allPackets.StartBenchmark();
+            JsonPacket packet = new JsonPacket();
+            packet.SetData(data.getBytes());
+
+            packetId = packet.GetInt16("PacketId");
+            playerId = packet.GetInt32("PlayerId");
+            position = packet.GetFloat3("Position");
+            message = packet.GetString("Message");
+            allPackets.StopBenchmark();
+        }
+        
+        System.out.println("PacketId " + packetId);
+        System.out.println("PlayerId " + playerId);
+        System.out.println("Message " + message);
+        System.out.println("Position (" + position[0] + "," + position[1] + "," + position[2] + ")");
+        System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
+    }
+    @Override
+    public void ChatMessage(String data)
+    {
+        short packetId = 0;
+        int playerId = 0;
+        String message = "";
+
+        Benchmark allPackets = new Benchmark();
+
+        for (int x = 0; x < _amountLarge; ++x)
+        {
+            allPackets.StartBenchmark();
+            JsonPacket packet = new JsonPacket();
+            packet.SetData(data.getBytes());
+
+            packetId = packet.GetInt16("PacketId");
+            playerId = packet.GetInt32("PlayerId");
+            message = packet.GetString("Message");
+            allPackets.StopBenchmark();
+        }
+        
+        System.out.println("PacketId " + packetId);
+        System.out.println("PlayerId " + playerId);
+        System.out.println("Message " + message);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
 }
