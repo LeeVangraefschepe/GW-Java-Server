@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 import benchmark.BaseBenchmark;
-import benchmark.Json;
+import benchmark.Xml;
 import networking.Server;
 
 public class MainClass
@@ -17,7 +17,7 @@ public class MainClass
         Server server = new Server(7777);
         server.StartListening();
 
-        BaseBenchmark benchmark = new Json(server);
+        BaseBenchmark benchmark = new Xml(server);
         benchmark.TestReadWrite();
         benchmark.SetBenchmarkAmount(1, 1);
 
@@ -34,7 +34,7 @@ public class MainClass
             if (input.compareToIgnoreCase("chat message") == 0) benchmark.ChatMessage();
 
             if (input.compareToIgnoreCase("one shot") == 0) benchmark.SetBenchmarkAmount(1, 1);
-            if (input.compareToIgnoreCase("big shot") == 0) benchmark.SetBenchmarkAmount(5000, 50000);
+            if (input.compareToIgnoreCase("big shot") == 0) benchmark.SetBenchmarkAmount(100, 1000);
 
             if (input.compareToIgnoreCase("send on") == 0) benchmark.SetSending(true);
             if (input.compareToIgnoreCase("send off") == 0) benchmark.SetSending(false);

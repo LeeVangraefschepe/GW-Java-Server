@@ -1,10 +1,12 @@
 package packets;
+import java.io.StringReader;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 public class XmlPacket implements BasePacket
 {
@@ -58,7 +60,8 @@ public class XmlPacket implements BasePacket
         String xmlString = new String(data, java.nio.charset.StandardCharsets.UTF_8);
         try
         {
-            _document = _builder.parse(xmlString);
+            InputSource is = new InputSource(new StringReader(xmlString));
+            _document = _builder.parse(is);
         }
         catch (Exception ex)
         {
