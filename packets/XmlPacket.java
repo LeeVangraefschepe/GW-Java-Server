@@ -4,7 +4,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
@@ -75,19 +74,7 @@ public class XmlPacket implements BasePacket
         // Create or update the element with the specified key
         Element element = _document.createElement(key);
         element.appendChild(_document.createTextNode(String.valueOf(value)));
-
-        // If the key already exists, replace the existing value
-        NodeList existingNodes = _document.getElementsByTagName(key);
-        if (existingNodes.getLength() > 0)
-        {
-            Node existingNode = existingNodes.item(0);
-            existingNode.getParentNode().replaceChild(element, existingNode);
-        }
-        else
-        {
-            // If the key doesn't exist, append the new element
-            _document.getDocumentElement().appendChild(element);
-        }
+        _document.getDocumentElement().appendChild(element);
     }
 
     @Override
@@ -96,19 +83,7 @@ public class XmlPacket implements BasePacket
         // Create or update the element with the specified key
         Element element = _document.createElement(key);
         element.appendChild(_document.createTextNode(String.valueOf(value)));
-
-        // If the key already exists, replace the existing value
-        NodeList existingNodes = _document.getElementsByTagName(key);
-        if (existingNodes.getLength() > 0)
-        {
-            Node existingNode = existingNodes.item(0);
-            existingNode.getParentNode().replaceChild(element, existingNode);
-        }
-        else
-        {
-            // If the key doesn't exist, append the new element
-            _document.getDocumentElement().appendChild(element);
-        }
+        _document.getDocumentElement().appendChild(element);
     }
 
     @Override
@@ -117,19 +92,7 @@ public class XmlPacket implements BasePacket
         // Create or update the element with the specified key
         Element element = _document.createElement(key);
         element.appendChild(_document.createTextNode(String.valueOf(value)));
-
-        // If the key already exists, replace the existing value
-        NodeList existingNodes = _document.getElementsByTagName(key);
-        if (existingNodes.getLength() > 0)
-        {
-            Node existingNode = existingNodes.item(0);
-            existingNode.getParentNode().replaceChild(element, existingNode);
-        }
-        else
-        {
-            // If the key doesn't exist, append the new element
-            _document.getDocumentElement().appendChild(element);
-        }
+        _document.getDocumentElement().appendChild(element);
     }
 
     @Override
@@ -146,19 +109,7 @@ public class XmlPacket implements BasePacket
         element.setAttribute("x", String.valueOf(x));
         element.setAttribute("y", String.valueOf(y));
         element.setAttribute("z", String.valueOf(z));
-
-        // If the key already exists, replace the existing value
-        NodeList existingNodes = _document.getElementsByTagName(key);
-        if (existingNodes.getLength() > 0)
-        {
-            Node existingNode = existingNodes.item(0);
-            existingNode.getParentNode().replaceChild(element, existingNode);
-        }
-        else
-        {
-            // If the key doesn't exist, append the new element
-            _document.getDocumentElement().appendChild(element);
-        }
+        _document.getDocumentElement().appendChild(element);
     }
 
     @Override
@@ -167,19 +118,7 @@ public class XmlPacket implements BasePacket
         // Create or update the element with the specified key
         Element element = _document.createElement(key);
         element.appendChild(_document.createTextNode(String.valueOf(value)));
-
-        // If the key already exists, replace the existing value
-        NodeList existingNodes = _document.getElementsByTagName(key);
-        if (existingNodes.getLength() > 0)
-        {
-            Node existingNode = existingNodes.item(0);
-            existingNode.getParentNode().replaceChild(element, existingNode);
-        }
-        else
-        {
-            // If the key doesn't exist, append the new element
-            _document.getDocumentElement().appendChild(element);
-        }
+        _document.getDocumentElement().appendChild(element);
     }
 
     @Override
@@ -195,19 +134,7 @@ public class XmlPacket implements BasePacket
         Element element = _document.createElement(key);
         element.setAttribute("x", String.valueOf(x));
         element.setAttribute("y", String.valueOf(y));
-
-        // If the key already exists, replace the existing value
-        NodeList existingNodes = _document.getElementsByTagName(key);
-        if (existingNodes.getLength() > 0)
-        {
-            Node existingNode = existingNodes.item(0);
-            existingNode.getParentNode().replaceChild(element, existingNode);
-        }
-        else
-        {
-            // If the key doesn't exist, append the new element
-            _document.getDocumentElement().appendChild(element);
-        }
+        _document.getDocumentElement().appendChild(element);
     }
 
     @Override
@@ -224,19 +151,7 @@ public class XmlPacket implements BasePacket
         element.setAttribute("x", String.valueOf(x));
         element.setAttribute("y", String.valueOf(y));
         element.setAttribute("z", String.valueOf(z));
-
-        // If the key already exists, replace the existing value
-        NodeList existingNodes = _document.getElementsByTagName(key);
-        if (existingNodes.getLength() > 0)
-        {
-            Node existingNode = existingNodes.item(0);
-            existingNode.getParentNode().replaceChild(element, existingNode);
-        }
-        else
-        {
-            // If the key doesn't exist, append the new element
-            _document.getDocumentElement().appendChild(element);
-        }
+        _document.getDocumentElement().appendChild(element);
     }
 
     @Override
@@ -245,19 +160,7 @@ public class XmlPacket implements BasePacket
         // Create or update the element with the specified key
         Element element = _document.createElement(key);
         element.appendChild(_document.createTextNode(value));
-
-        // If the key already exists, replace the existing value
-        NodeList existingNodes = _document.getElementsByTagName(key);
-        if (existingNodes.getLength() > 0)
-        {
-            Node existingNode = existingNodes.item(0);
-            existingNode.getParentNode().replaceChild(element, existingNode);
-        }
-        else
-        {
-            // If the key doesn't exist, append the new element
-            _document.getDocumentElement().appendChild(element);
-        }
+        _document.getDocumentElement().appendChild(element);
     }
 
     @Override
@@ -283,19 +186,7 @@ public class XmlPacket implements BasePacket
             }
             element.appendChild(dim1Element);
         }
-
-        // If the key already exists, replace the existing value
-        NodeList existingNodes = _document.getElementsByTagName(key);
-        if (existingNodes.getLength() > 0)
-        {
-            Node existingNode = existingNodes.item(0);
-            existingNode.getParentNode().replaceChild(element, existingNode);
-        }
-        else
-        {
-            // If the key doesn't exist, append the new element
-            _document.getDocumentElement().appendChild(element);
-        }
+        _document.getDocumentElement().appendChild(element);
     }
 
     @Override
