@@ -37,12 +37,12 @@ public abstract class BaseBenchmark
     public abstract void PlayerJoin();
     public abstract void ChatMessage();
 
-    public abstract void FullChunk(String data);
-    public abstract void Input(String data);
-    public abstract void BlockUpdate(String data);
-    public abstract void PlayerUpdate(String data);
-    public abstract void PlayerJoin(String data);
-    public abstract void ChatMessage(String data);
+    public abstract void FullChunk(byte[] data);
+    public abstract void Input(byte[] data);
+    public abstract void BlockUpdate(byte[] data);
+    public abstract void PlayerUpdate(byte[] data);
+    public abstract void PlayerJoin(byte[] data);
+    public abstract void ChatMessage(byte[] data);
 
     public class Benchmark
     {

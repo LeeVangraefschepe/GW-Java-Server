@@ -35,7 +35,7 @@ public class Json extends BaseBenchmark
         System.out.println("Total packets length: " + length / _amountLarge);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
 
-        FullChunk(packet.GetData());
+        FullChunk(packet.GetData().getBytes());
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Json extends BaseBenchmark
         packet.SetBoolean(false, "OnGround");
         packet.SetFloat3(20f, 50f, 180f, "Rotation");
         packet.SetFloat3(20f, 50f, 180f, "HeadRotation");
-        PlayerUpdate(packet.GetData());
+        PlayerUpdate(packet.GetData().getBytes());
     }
 
     @Override
@@ -103,7 +103,7 @@ public class Json extends BaseBenchmark
         packet.SetIVec3(100, 72, -500, "Position");
         packet.SetInt16((short)1500, "BlockId");
         packet.SetUChar((byte)4, "BlockData");
-        BlockUpdate(packet.GetData());
+        BlockUpdate(packet.GetData().getBytes());
     }
 
     @Override
@@ -135,7 +135,7 @@ public class Json extends BaseBenchmark
         packet.SetUChar((byte)58, "InputType");
         packet.SetUChar((byte)2, "InputAction");
 
-        Input(packet.GetData());
+        Input(packet.GetData().getBytes());
     }
 
     @Override
@@ -166,7 +166,7 @@ public class Json extends BaseBenchmark
         packet.SetInt32((int)1564815618, "PlayerId");
         packet.SetString("lee_vgs123457890", "Message");
         packet.SetFloat3(100f, 72f, -500f, "Position");
-        PlayerJoin(packet.GetData());
+        PlayerJoin(packet.GetData().getBytes());
     }
 
     @Override
@@ -195,7 +195,7 @@ public class Json extends BaseBenchmark
         packet.SetInt16((short)14, "PacketId");
         packet.SetInt32((int)1564815618, "PlayerId");
         packet.SetString("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis arcu ex, fermentum et faucibus facilisis, eleifend eget lacus. Mauris ex tortor, efficitur sit amet blandit ut, lacinia ultrices ante. Integer condimentum in.", "Message");
-        ChatMessage(packet.GetData());
+        ChatMessage(packet.GetData().getBytes());
     }
 
     @Override
@@ -220,7 +220,7 @@ public class Json extends BaseBenchmark
     }
 
     @Override
-    public void FullChunk(String data)
+    public void FullChunk(byte[] data)
     {
         short[][][] chunk = new short[1][1][1];
         int[] position = new int[1];
@@ -231,7 +231,7 @@ public class Json extends BaseBenchmark
         {
             allPackets.StartBenchmark();
             JsonPacket packet = new JsonPacket();
-            packet.SetData(data.getBytes());
+            packet.SetData(data);
             chunk = packet.GetChunk("Chunk");
             position = packet.GetIVec2("Position");
             biome = packet.GetInt32("Biome");
@@ -246,7 +246,7 @@ public class Json extends BaseBenchmark
     }
 
     @Override
-    public void Input(String data)
+    public void Input(byte[] data)
     {
         short packetId = 0;
         int playerId = 0;
@@ -258,7 +258,7 @@ public class Json extends BaseBenchmark
         {
             allPackets.StartBenchmark();
             JsonPacket packet = new JsonPacket();
-            packet.SetData(data.getBytes());
+            packet.SetData(data);
 
             packetId = packet.GetInt16("PacketId");
             playerId = packet.GetInt32("PlayerId");
@@ -274,7 +274,7 @@ public class Json extends BaseBenchmark
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
     @Override
-    public void BlockUpdate(String data)
+    public void BlockUpdate(byte[] data)
     {
         short packetId = 0, blockId = 0;
         int[] position = new int[1];
@@ -286,7 +286,7 @@ public class Json extends BaseBenchmark
         {
             allPackets.StartBenchmark();
             JsonPacket packet = new JsonPacket();
-            packet.SetData(data.getBytes());
+            packet.SetData(data);
 
             packetId = packet.GetInt16("PacketId");
             position = packet.GetIVec3("Position");
@@ -302,7 +302,7 @@ public class Json extends BaseBenchmark
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
     @Override
-    public void PlayerUpdate(String data)
+    public void PlayerUpdate(byte[] data)
     {
         short packetId = 0;
         int playerId = 0;
@@ -319,7 +319,7 @@ public class Json extends BaseBenchmark
         {
             allPackets.StartBenchmark();
             JsonPacket packet = new JsonPacket();
-            packet.SetData(data.getBytes());
+            packet.SetData(data);
 
             packetId = packet.GetInt16("PacketId");
             playerId = packet.GetInt32("PlayerId");
@@ -341,7 +341,7 @@ public class Json extends BaseBenchmark
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
     @Override
-    public void PlayerJoin(String data)
+    public void PlayerJoin(byte[] data)
     {
         short packetId = 0;
         int playerId = 0;
@@ -354,7 +354,7 @@ public class Json extends BaseBenchmark
         {
             allPackets.StartBenchmark();
             JsonPacket packet = new JsonPacket();
-            packet.SetData(data.getBytes());
+            packet.SetData(data);
 
             packetId = packet.GetInt16("PacketId");
             playerId = packet.GetInt32("PlayerId");
@@ -370,7 +370,7 @@ public class Json extends BaseBenchmark
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
     }
     @Override
-    public void ChatMessage(String data)
+    public void ChatMessage(byte[] data)
     {
         short packetId = 0;
         int playerId = 0;
@@ -382,7 +382,7 @@ public class Json extends BaseBenchmark
         {
             allPackets.StartBenchmark();
             JsonPacket packet = new JsonPacket();
-            packet.SetData(data.getBytes());
+            packet.SetData(data);
 
             packetId = packet.GetInt16("PacketId");
             playerId = packet.GetInt32("PlayerId");
