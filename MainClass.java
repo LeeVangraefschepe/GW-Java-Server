@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 import benchmark.BaseBenchmark;
 import benchmark.Xml;
-import networking.Server;
 
 public class MainClass
 {
@@ -13,11 +12,7 @@ public class MainClass
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Started server on port: 7777");
-        Server server = new Server(7777);
-        server.StartListening();
-
-        BaseBenchmark benchmark = new Xml(server);
+        BaseBenchmark benchmark = new Xml();
         benchmark.TestReadWrite();
         benchmark.SetBenchmarkAmount(1, 1);
 
@@ -35,30 +30,7 @@ public class MainClass
 
             if (input.compareToIgnoreCase("one shot") == 0) benchmark.SetBenchmarkAmount(1, 1);
             if (input.compareToIgnoreCase("big shot") == 0) benchmark.SetBenchmarkAmount(100, 1000);
-
-            if (input.compareToIgnoreCase("send on") == 0) benchmark.SetSending(true);
-            if (input.compareToIgnoreCase("send off") == 0) benchmark.SetSending(false);
-
-            if (input.compareToIgnoreCase("print") == 0)
-            {
-                var packet = server.GetPacket();
-                if (packet == null)
-                {
-                    System.out.println("No new packets to print");
-                    continue;
-                }
-                while (packet != null)
-                {
-                    String receivedData = new String(packet, 8, packet.length-8);
-                    System.out.println(receivedData);
-                    packet = server.GetPacket();
-                }
-            }
         }
-        
-        server.StopListening();
-
-        System.out.println("Server stopped");
 
         scanner.close();
     }

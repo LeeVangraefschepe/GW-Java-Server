@@ -1,17 +1,10 @@
 package benchmark;
 
-import networking.Server;
 import packets.BasePacket;
 import packets.JsonPacket;
 
 public class Json extends BaseBenchmark
 {
-    Server _server;
-    public Json(Server server)
-    {
-        _server = server;
-    }
-
     @Override
     public void FullChunk()
     {
@@ -66,7 +59,6 @@ public class Json extends BaseBenchmark
             
             allPackets.StopBenchmark();
             length += data.length();
-            if (_sendPacket) _server.SendAllUDP(data);
         }
         
         System.out.println("Total packets length: " + length / _amountSmall);
@@ -101,7 +93,6 @@ public class Json extends BaseBenchmark
 
             allPackets.StopBenchmark();
             length += data.length();
-            if (_sendPacket) _server.SendAllUDP(data);
         }
         
         System.out.println("Total packets length: " + length / _amountSmall);
@@ -133,7 +124,6 @@ public class Json extends BaseBenchmark
 
             allPackets.StopBenchmark();
             length += data.length();
-            if (_sendPacket) _server.SendAllUDP(data);
         }
         
         System.out.println("Total packets length: " + length / _amountSmall);
@@ -166,7 +156,6 @@ public class Json extends BaseBenchmark
 
             allPackets.StopBenchmark();
             length += data.length();
-            if (_sendPacket) _server.SendAllUDP(data);
         }
         
         System.out.println("Total packets length: " + length / _amountSmall);
@@ -197,7 +186,6 @@ public class Json extends BaseBenchmark
 
             allPackets.StopBenchmark();
             length += data.length();
-            if (_sendPacket) _server.SendAllUDP(data);
         }
         
         System.out.println("Total packets length: " + length / _amountSmall);
