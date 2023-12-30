@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 import benchmark.BaseBenchmark;
-import benchmark.Xml;
+import benchmark.Proto;
 
 public class MainClass
 {
@@ -12,7 +12,7 @@ public class MainClass
 
         Scanner scanner = new Scanner(System.in);
 
-        BaseBenchmark benchmark = new Xml();
+        BaseBenchmark benchmark = new Proto();
         benchmark.TestReadWrite();
         benchmark.SetBenchmarkAmount(1, 1);
 
