@@ -21,11 +21,11 @@ public class Proto extends BaseBenchmark
         var chunk = GenerateRandomChunk(384);
 
         Benchmark allPackets = new Benchmark();
-        long length = 0;
         var packetBuilder = ChunkData.newBuilder();
-        for (int x = 0; x < _amountSmall; ++x)
+        for (int x = 0; x < _amountLarge; ++x)
         {
             allPackets.StartBenchmark();
+            packetBuilder.clear();
  
             packetBuilder.setPacketId(20);
             packetBuilder.setPosition(ChunkData.Vector2.newBuilder().setX(0).setY(0).build());
@@ -46,12 +46,11 @@ public class Proto extends BaseBenchmark
                 packetBuilder.addChunk(rowBuilder.build());
             }
 
-            var data = packetBuilder.build().toByteArray();
+            packetBuilder.build().toByteArray();
             allPackets.StopBenchmark();
-            length += data.length;
         }
 
-        System.out.println("Total packets length: " + length / _amountSmall);
+        System.out.println("Total packets length: " + packetBuilder.build().toByteArray().length);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
 
         var data = packetBuilder.build().toByteArray();
