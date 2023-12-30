@@ -15,39 +15,29 @@ public class Json extends BaseBenchmark
     @Override
     public void FullChunk()
     {
-        var chunk = GenerateRandomChunk(48);
-        BasePacket[] packets = new JsonPacket[8];
+        var chunk = GenerateRandomChunk(384);
 
         Benchmark allPackets = new Benchmark();
         long length = 0;
         for (int x = 0; x < _amountLarge; ++x)
         {
             allPackets.StartBenchmark();
-            for (int i = 0; i < packets.length; ++i)
-            {
-                BasePacket packet = new JsonPacket();
-                packet.SetInt16((short)20, "PacketId");
-                packet.SetIVec2(0, 0, "Position");
-                packet.SetUChar((byte)0, "Biome");
-                packet.SetChunk(chunk, "Chunk");
-                
-                var data = packet.GetData();
-                length += data.length();
-            }
-            allPackets.StopBenchmark();
-        }
-
-        BasePacket packet = new JsonPacket();
-        for (int i = 0; i < packets.length; ++i)
-        {
-                
+            BasePacket packet = new JsonPacket();
             packet.SetInt16((short)20, "PacketId");
             packet.SetIVec2(0, 0, "Position");
             packet.SetUChar((byte)0, "Biome");
             packet.SetChunk(chunk, "Chunk");
-
-            if (_sendPacket) _server.SendAllUDP(packet.GetData());
+                
+            var data = packet.GetData();
+            length += data.length();
+            allPackets.StopBenchmark();
         }
+
+        BasePacket packet = new JsonPacket();
+        packet.SetInt16((short)20, "PacketId");
+        packet.SetIVec2(0, 0, "Position");
+        packet.SetUChar((byte)0, "Biome");
+        packet.SetChunk(chunk, "Chunk");
         
         System.out.println("Total packets length: " + length / _amountLarge);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
