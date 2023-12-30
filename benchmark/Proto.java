@@ -22,11 +22,11 @@ public class Proto extends BaseBenchmark
 
         Benchmark allPackets = new Benchmark();
         long length = 0;
+        var packetBuilder = ChunkData.newBuilder();
         for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
-
-            var packetBuilder = ChunkData.newBuilder();
+ 
             packetBuilder.setPacketId(20);
             packetBuilder.setPosition(ChunkData.Vector2.newBuilder().setX(0).setY(0).build());
             packetBuilder.setBiome(0);
@@ -54,27 +54,7 @@ public class Proto extends BaseBenchmark
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
 
-        var packetBuilder = ChunkData.newBuilder();
-            packetBuilder.setPacketId(20);
-            packetBuilder.setPosition(ChunkData.Vector2.newBuilder().setX(0).setY(0).build());
-            packetBuilder.setBiome(0);
-
-            for (short[][] row : chunk)
-            {
-                ChunkData.ChunkRow.Builder rowBuilder = ChunkData.ChunkRow.newBuilder();
-                for (short[] slice : row)
-                {
-                    ChunkData.ChunkSlice.Builder sliceBuilder = ChunkData.ChunkSlice.newBuilder();
-                    for (short value : slice)
-                    {
-                        sliceBuilder.addValues(value);
-                    }
-                    rowBuilder.addSlices(sliceBuilder.build());
-                }
-                packetBuilder.addChunk(rowBuilder.build());
-            }
-
-            var data = packetBuilder.build().toByteArray();
+        var data = packetBuilder.build().toByteArray();
 
         FullChunk(data);
     }
@@ -84,11 +64,11 @@ public class Proto extends BaseBenchmark
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
+        var packetBuilder = PlayerUpdate.newBuilder();
         for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
-            var packetBuilder = PlayerUpdate.newBuilder();
             packetBuilder.setPacketId(10);
             packetBuilder.setPlayerId(1564815618);
             packetBuilder.setPosition(PlayerUpdate.Vector3f.newBuilder().setX(100f).setY(72f).setZ(-500f).build());
@@ -105,15 +85,7 @@ public class Proto extends BaseBenchmark
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
 
-        var packetBuilder = PlayerUpdate.newBuilder();
-            packetBuilder.setPacketId(10);
-            packetBuilder.setPlayerId(1564815618);
-            packetBuilder.setPosition(PlayerUpdate.Vector3f.newBuilder().setX(100f).setY(72f).setZ(-500f).build());
-            packetBuilder.setHealth(20);
-            packetBuilder.setOnGround(false);
-            packetBuilder.setRotation(PlayerUpdate.Vector3f.newBuilder().setX(20f).setY(50f).setZ(180f).build());
-            packetBuilder.setHeadRotation(PlayerUpdate.Vector3f.newBuilder().setX(20f).setY(50f).setZ(180f).build());
-            var data = packetBuilder.build().toByteArray();
+        var data = packetBuilder.build().toByteArray();
 
         PlayerUpdate(data);
     }
@@ -123,11 +95,11 @@ public class Proto extends BaseBenchmark
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
+        var packetBuilder = BlockUpdate.newBuilder();
         for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
-            var packetBuilder = BlockUpdate.newBuilder();
             packetBuilder.setPacketId(11);
             packetBuilder.setPosition(BlockUpdate.Vector3.newBuilder().setX(100).setY(72).setZ(-500).build());
             packetBuilder.setBlock(1500);
@@ -141,12 +113,7 @@ public class Proto extends BaseBenchmark
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
 
-        var packetBuilder = BlockUpdate.newBuilder();
-            packetBuilder.setPacketId(11);
-            packetBuilder.setPosition(BlockUpdate.Vector3.newBuilder().setX(100).setY(72).setZ(-500).build());
-            packetBuilder.setBlock(1500);
-            packetBuilder.setBlockData(4);
-            var data = packetBuilder.build().toByteArray();
+        var data = packetBuilder.build().toByteArray();
 
         BlockUpdate(data);
     }
@@ -156,11 +123,11 @@ public class Proto extends BaseBenchmark
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
+        var packetBuilder = Input.newBuilder();
         for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
-            var packetBuilder = Input.newBuilder();
             packetBuilder.setPacketId(11);
             packetBuilder.setPlayerId(1564815618);
             packetBuilder.setInputType(58);
@@ -174,12 +141,7 @@ public class Proto extends BaseBenchmark
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
 
-        var packetBuilder = Input.newBuilder();
-            packetBuilder.setPacketId(11);
-            packetBuilder.setPlayerId(1564815618);
-            packetBuilder.setInputType(58);
-            packetBuilder.setInputAction(2);
-            var data = packetBuilder.build().toByteArray();
+        var data = packetBuilder.build().toByteArray();
 
         Input(data);
     }
@@ -189,11 +151,11 @@ public class Proto extends BaseBenchmark
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
+        var packetBuilder = PlayerJoin.newBuilder();
         for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
-            var packetBuilder = PlayerJoin.newBuilder();
             packetBuilder.setPacketId(10);
             packetBuilder.setPlayerId(1564815618);
             packetBuilder.setMessage("lee_vgs123457890");
@@ -207,11 +169,6 @@ public class Proto extends BaseBenchmark
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
 
-        var packetBuilder = PlayerJoin.newBuilder();
-        packetBuilder.setPacketId(10);
-        packetBuilder.setPlayerId(1564815618);
-        packetBuilder.setMessage("lee_vgs123457890");
-        packetBuilder.setPosition(PlayerJoin.Vector3f.newBuilder().setX(100f).setY(72f).setZ(-500f).build());
         var data = packetBuilder.build().toByteArray();
 
         PlayerJoin(data);
@@ -222,11 +179,12 @@ public class Proto extends BaseBenchmark
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
+
+        var packetBuilder = ChatMessage.newBuilder();
         for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
-            var packetBuilder = ChatMessage.newBuilder();
             packetBuilder.setPacketId(14);
             packetBuilder.setPlayerId(1564815618);
             packetBuilder.setMessage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis arcu ex, fermentum et faucibus facilisis, eleifend eget lacus. Mauris ex tortor, efficitur sit amet blandit ut, lacinia ultrices ante. Integer condimentum in.");
@@ -239,11 +197,7 @@ public class Proto extends BaseBenchmark
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
 
-        var packetBuilder = ChatMessage.newBuilder();
-            packetBuilder.setPacketId(14);
-            packetBuilder.setPlayerId(1564815618);
-            packetBuilder.setMessage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis arcu ex, fermentum et faucibus facilisis, eleifend eget lacus. Mauris ex tortor, efficitur sit amet blandit ut, lacinia ultrices ante. Integer condimentum in.");
-            var data = packetBuilder.build().toByteArray();
+        var data = packetBuilder.build().toByteArray();
 
         ChatMessage(data);
     }
