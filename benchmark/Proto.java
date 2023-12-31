@@ -22,21 +22,25 @@ public class Proto extends BaseBenchmark
 
         Benchmark allPackets = new Benchmark();
         var packetBuilder = ChunkData.newBuilder();
+        var vectorBuilder = ChunkData.Vector2.newBuilder();
+        ChunkData.ChunkRow.Builder rowBuilder = ChunkData.ChunkRow.newBuilder();
+        ChunkData.ChunkSlice.Builder sliceBuilder = ChunkData.ChunkSlice.newBuilder();
+
         for (int x = 0; x < _amountLarge; ++x)
         {
             allPackets.StartBenchmark();
             packetBuilder.clear();
  
             packetBuilder.setPacketId(20);
-            packetBuilder.setPosition(ChunkData.Vector2.newBuilder().setX(0).setY(0).build());
+            packetBuilder.setPosition(vectorBuilder.setX(0).setY(0).build());
             packetBuilder.setBiome(0);
 
             for (short[][] row : chunk)
             {
-                ChunkData.ChunkRow.Builder rowBuilder = ChunkData.ChunkRow.newBuilder();
+                rowBuilder.clear();
                 for (short[] slice : row)
                 {
-                    ChunkData.ChunkSlice.Builder sliceBuilder = ChunkData.ChunkSlice.newBuilder();
+                    sliceBuilder.clear();
                     for (short value : slice)
                     {
                         sliceBuilder.addValues(value);
@@ -64,17 +68,18 @@ public class Proto extends BaseBenchmark
         Benchmark allPackets = new Benchmark();
         long length = 0;
         var packetBuilder = PlayerUpdate.newBuilder();
+        var vectorBuilder = PlayerUpdate.Vector3f.newBuilder();
         for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
             packetBuilder.setPacketId(10);
             packetBuilder.setPlayerId(1564815618);
-            packetBuilder.setPosition(PlayerUpdate.Vector3f.newBuilder().setX(100f).setY(72f).setZ(-500f).build());
+            packetBuilder.setPosition(vectorBuilder.setX(100f).setY(72f).setZ(-500f).build());
             packetBuilder.setHealth(20);
             packetBuilder.setOnGround(false);
-            packetBuilder.setRotation(PlayerUpdate.Vector3f.newBuilder().setX(20f).setY(50f).setZ(180f).build());
-            packetBuilder.setHeadRotation(PlayerUpdate.Vector3f.newBuilder().setX(20f).setY(50f).setZ(180f).build());
+            packetBuilder.setRotation(vectorBuilder.setX(20f).setY(50f).setZ(180f).build());
+            packetBuilder.setHeadRotation(vectorBuilder.setX(20f).setY(50f).setZ(180f).build());
             var data = packetBuilder.build().toByteArray();
 
             allPackets.StopBenchmark();
@@ -95,12 +100,13 @@ public class Proto extends BaseBenchmark
         Benchmark allPackets = new Benchmark();
         long length = 0;
         var packetBuilder = BlockUpdate.newBuilder();
+        var positionBuilder = BlockUpdate.Vector3.newBuilder();
         for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
             packetBuilder.setPacketId(11);
-            packetBuilder.setPosition(BlockUpdate.Vector3.newBuilder().setX(100).setY(72).setZ(-500).build());
+            packetBuilder.setPosition(positionBuilder.setX(100).setY(72).setZ(-500).build());
             packetBuilder.setBlock(1500);
             packetBuilder.setBlockData(4);
             var data = packetBuilder.build().toByteArray();
@@ -151,6 +157,7 @@ public class Proto extends BaseBenchmark
         Benchmark allPackets = new Benchmark();
         long length = 0;
         var packetBuilder = PlayerJoin.newBuilder();
+        var vectorBuilder = PlayerJoin.Vector3f.newBuilder();
         for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
@@ -158,7 +165,7 @@ public class Proto extends BaseBenchmark
             packetBuilder.setPacketId(10);
             packetBuilder.setPlayerId(1564815618);
             packetBuilder.setMessage("lee_vgs123457890");
-            packetBuilder.setPosition(PlayerJoin.Vector3f.newBuilder().setX(100f).setY(72f).setZ(-500f).build());
+            packetBuilder.setPosition(vectorBuilder.setX(100f).setY(72f).setZ(-500f).build());
             var data = packetBuilder.build().toByteArray();
 
             allPackets.StopBenchmark();
