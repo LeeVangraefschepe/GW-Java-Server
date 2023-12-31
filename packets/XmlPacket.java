@@ -4,6 +4,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
@@ -27,6 +28,20 @@ public class XmlPacket implements BasePacket
         catch (Exception ex)
         {
             ex.printStackTrace();
+        }
+    }
+
+    public void Clear()
+    {
+        // Get the root element
+        Element root = _document.getDocumentElement();
+
+        // Remove all child nodes
+        NodeList childNodes = root.getChildNodes();
+        for (int i = childNodes.getLength() - 1; i >= 0; i--)
+        {
+            Node childNode = childNodes.item(i);
+            root.removeChild(childNode);
         }
     }
 

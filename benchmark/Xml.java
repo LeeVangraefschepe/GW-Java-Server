@@ -32,11 +32,12 @@ public class Xml extends BaseBenchmark
         var chunk = GenerateRandomChunk(384);
 
         Benchmark allPackets = new Benchmark();
+        XmlPacket packet = new XmlPacket();
         long length = 0;
         for (int x = 0; x < _amountLarge; ++x)
         {
             allPackets.StartBenchmark();
-            BasePacket packet = new XmlPacket();
+            packet.Clear();
             packet.SetInt16((short)20, "PacketId");
             packet.SetIVec2(0, 0, "Position");
             packet.SetUChar((byte)0, "Biome");
@@ -46,12 +47,6 @@ public class Xml extends BaseBenchmark
             length += data.length();
             allPackets.StopBenchmark();
         }
-
-        BasePacket packet = new XmlPacket();
-        packet.SetInt16((short)20, "PacketId");
-        packet.SetIVec2(0, 0, "Position");
-        packet.SetUChar((byte)0, "Biome");
-        packet.SetChunk(chunk, "Chunk");
         
         System.out.println("Total packets length: " + length / _amountLarge);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
@@ -64,11 +59,11 @@ public class Xml extends BaseBenchmark
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
+        XmlPacket packet = new XmlPacket();
         for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
-
-            BasePacket packet = new XmlPacket();
+            packet.Clear();
             packet.SetInt16((short)10, "PacketId");
             packet.SetInt32((int)1564815618, "PlayerId");
             packet.SetFloat3(100f, 72f, -500f, "Position");
@@ -85,14 +80,6 @@ public class Xml extends BaseBenchmark
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
 
-        BasePacket packet = new XmlPacket();
-        packet.SetInt16((short)10, "PacketId");
-        packet.SetInt32((int)1564815618, "PlayerId");
-        packet.SetFloat3(100f, 72f, -500f, "Position");
-        packet.SetUChar((byte)20, "Health");
-        packet.SetBoolean(false, "OnGround");
-        packet.SetFloat3(20f, 50f, 180f, "Rotation");
-        packet.SetFloat3(20f, 50f, 180f, "HeadRotation");
         PlayerUpdate(packet.GetData().getBytes());
     }
 
@@ -101,11 +88,12 @@ public class Xml extends BaseBenchmark
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
+        XmlPacket packet = new XmlPacket();
         for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
-            BasePacket packet = new XmlPacket();
+            packet.Clear();
             packet.SetInt16((short)11, "PacketId");
             packet.SetIVec3(100, 72, -500, "Position");
             packet.SetInt16((short)1500, "BlockId");
@@ -119,11 +107,6 @@ public class Xml extends BaseBenchmark
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
 
-        BasePacket packet = new XmlPacket();
-        packet.SetInt16((short)11, "PacketId");
-        packet.SetIVec3(100, 72, -500, "Position");
-        packet.SetInt16((short)1500, "BlockId");
-        packet.SetUChar((byte)4, "BlockData");
         BlockUpdate(packet.GetData().getBytes());
     }
 
@@ -132,11 +115,12 @@ public class Xml extends BaseBenchmark
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
+        XmlPacket packet = new XmlPacket();
         for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
-            BasePacket packet = new XmlPacket();
+            packet.Clear();
             packet.SetInt16((short)12, "PacketId");
             packet.SetInt32((int)1564815618, "PlayerId");
             packet.SetUChar((byte)58, "InputType");
@@ -150,12 +134,6 @@ public class Xml extends BaseBenchmark
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
 
-        BasePacket packet = new XmlPacket();
-        packet.SetInt16((short)12, "PacketId");
-        packet.SetInt32((int)1564815618, "PlayerId");
-        packet.SetUChar((byte)58, "InputType");
-        packet.SetUChar((byte)2, "InputAction");
-
         Input(packet.GetData().getBytes());
     }
 
@@ -164,11 +142,12 @@ public class Xml extends BaseBenchmark
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
+        XmlPacket packet = new XmlPacket();
         for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
-            BasePacket packet = new XmlPacket();
+            packet.Clear();
             packet.SetInt16((short)13, "PacketId");
             packet.SetInt32((int)1564815618, "PlayerId");
             packet.SetString("lee_vgs123457890", "Message");
@@ -182,11 +161,6 @@ public class Xml extends BaseBenchmark
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
 
-        BasePacket packet = new XmlPacket();
-        packet.SetInt16((short)13, "PacketId");
-        packet.SetInt32((int)1564815618, "PlayerId");
-        packet.SetString("lee_vgs123457890", "Message");
-        packet.SetFloat3(100f, 72f, -500f, "Position");
         PlayerJoin(packet.GetData().getBytes());
     }
 
@@ -195,11 +169,12 @@ public class Xml extends BaseBenchmark
     {
         Benchmark allPackets = new Benchmark();
         long length = 0;
+        XmlPacket packet = new XmlPacket();
         for (int x = 0; x < _amountSmall; ++x)
         {
             allPackets.StartBenchmark();
 
-            BasePacket packet = new XmlPacket();
+            packet.Clear();
             packet.SetInt16((short)14, "PacketId");
             packet.SetInt32((int)1564815618, "PlayerId");
             packet.SetString("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis arcu ex, fermentum et faucibus facilisis, eleifend eget lacus. Mauris ex tortor, efficitur sit amet blandit ut, lacinia ultrices ante. Integer condimentum in.", "Message");
@@ -212,10 +187,6 @@ public class Xml extends BaseBenchmark
         System.out.println("Total packets length: " + length / _amountSmall);
         System.out.println("Execution time average: " + allPackets.GetAverageMs() + "ms");
         
-        BasePacket packet = new XmlPacket();
-        packet.SetInt16((short)14, "PacketId");
-        packet.SetInt32((int)1564815618, "PlayerId");
-        packet.SetString("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis arcu ex, fermentum et faucibus facilisis, eleifend eget lacus. Mauris ex tortor, efficitur sit amet blandit ut, lacinia ultrices ante. Integer condimentum in.", "Message");
         ChatMessage(packet.GetData().getBytes());
     }
 
@@ -227,10 +198,11 @@ public class Xml extends BaseBenchmark
         int biome = 0;
         Benchmark allPackets = new Benchmark();
 
+        BasePacket packet = new XmlPacket();
         for (int x = 0; x < _amountLarge; ++x)
         {
             allPackets.StartBenchmark();
-            BasePacket packet = new XmlPacket();
+            
             packet.SetData(data);
             chunk = packet.GetChunk("Chunk");
             position = packet.GetIVec2("Position");
@@ -254,12 +226,12 @@ public class Xml extends BaseBenchmark
 
         Benchmark allPackets = new Benchmark();
 
+        BasePacket packet = new XmlPacket();
         for (int x = 0; x < _amountLarge; ++x)
         {
             allPackets.StartBenchmark();
-            BasePacket packet = new XmlPacket();
+            
             packet.SetData(data);
-
             packetId = packet.GetInt16("PacketId");
             playerId = packet.GetInt32("PlayerId");
             inputType = packet.GetUChar("InputType");
@@ -282,11 +254,11 @@ public class Xml extends BaseBenchmark
         byte blockData = 0;
 
         Benchmark allPackets = new Benchmark();
+        BasePacket packet = new XmlPacket();
 
         for (int x = 0; x < _amountLarge; ++x)
         {
             allPackets.StartBenchmark();
-            BasePacket packet = new XmlPacket();
             packet.SetData(data);
 
             packetId = packet.GetInt16("PacketId");
@@ -316,13 +288,13 @@ public class Xml extends BaseBenchmark
 
 
         Benchmark allPackets = new Benchmark();
+        BasePacket packet = new XmlPacket();
 
         for (int x = 0; x < _amountLarge; ++x)
         {
             allPackets.StartBenchmark();
-            BasePacket packet = new XmlPacket();
             packet.SetData(data);
-
+            
             packetId = packet.GetInt16("PacketId");
             playerId = packet.GetInt32("PlayerId");
             position = packet.GetFloat3("Position");
@@ -352,13 +324,13 @@ public class Xml extends BaseBenchmark
         String message = "";
 
         Benchmark allPackets = new Benchmark();
+        BasePacket packet = new XmlPacket();
 
         for (int x = 0; x < _amountLarge; ++x)
         {
             allPackets.StartBenchmark();
-            BasePacket packet = new XmlPacket();
-            packet.SetData(data);
 
+            packet.SetData(data);
             packetId = packet.GetInt16("PacketId");
             playerId = packet.GetInt32("PlayerId");
             position = packet.GetFloat3("Position");
@@ -381,13 +353,13 @@ public class Xml extends BaseBenchmark
         String message = "";
 
         Benchmark allPackets = new Benchmark();
+        BasePacket packet = new XmlPacket();
 
         for (int x = 0; x < _amountLarge; ++x)
         {
             allPackets.StartBenchmark();
-            BasePacket packet = new XmlPacket();
+            
             packet.SetData(data);
-
             packetId = packet.GetInt16("PacketId");
             playerId = packet.GetInt32("PlayerId");
             message = packet.GetString("Message");
