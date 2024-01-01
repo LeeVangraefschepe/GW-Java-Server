@@ -7,6 +7,11 @@ public class JsonPacket implements BasePacket
 {
     JSONObject _jsonObject = new JSONObject();
 
+    public void Clear()
+    {
+        _jsonObject.clear();
+    }
+
     //#region Getters
     @Override
     public String GetData()

@@ -195,7 +195,7 @@ public class Xml extends BaseBenchmark
     {
         short[][][] chunk = new short[1][1][1];
         int[] position = new int[1];
-        int biome = 0;
+        int biome = 0, packetId = 0;
         Benchmark allPackets = new Benchmark();
 
         BasePacket packet = new XmlPacket();
@@ -204,13 +204,14 @@ public class Xml extends BaseBenchmark
             allPackets.StartBenchmark();
             
             packet.SetData(data);
+            packetId = packet.GetInt16("PacketId");
             chunk = packet.GetChunk("Chunk");
             position = packet.GetIVec2("Position");
             biome = packet.GetInt32("Biome");
             allPackets.StopBenchmark();
         }
         
-
+        System.out.println("PacketId " + packetId);
         System.out.println("Block[0,0,0] " + chunk[0][0][0]);
         System.out.println("Position (" + position[0] + "," + position[1] + ")");
         System.out.println("Biome " + biome);

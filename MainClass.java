@@ -12,7 +12,7 @@ public class MainClass
 
         Scanner scanner = new Scanner(System.in);
 
-        BaseBenchmark benchmark = new Xml();
+        BaseBenchmark benchmark = new Json();
         benchmark.TestReadWrite();
         benchmark.SetBenchmarkAmount(1, 1);
 
